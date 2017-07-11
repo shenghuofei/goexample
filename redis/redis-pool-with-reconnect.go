@@ -58,8 +58,8 @@ func reconnect(){
         } else {
             fmt.Println("alive...")
         }
-        time.Sleep(3*time.Second)
         conn.Close()
+        time.Sleep(3*time.Second)
     }
 }
 
