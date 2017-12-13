@@ -1,0 +1,29 @@
+
+
+
+
+ONE TWO
+
+"output"
+"output"
+"output"
+"output"
+"output"
+"output"
+"output"
+"output"
+"output"
+"output"
+"output"
+
+"this is my func"
+
+
+
+    my method is false 
+
+
+
+    my method is true
+
+

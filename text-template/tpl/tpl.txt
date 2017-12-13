@@ -1,0 +1,27 @@
+{{/* 模板嵌套*/}}
+{{define "T1"}}ONE{{end}}
+{{define "T2"}}TWO{{end}}
+{{define "T3"}}{{template "T1"}} {{template "T2"}}{{end}}
+{{template "T3"}}
+
+{{"\"output\""}}
+{{`"output"`}}
+{{printf "%q" "output"}}
+{{"output" | printf "%q"}}
+{{printf "%q" (print "out" "put")}}
+{{"put" | printf "%s%s" "out" | printf "%q"}}
+{{"output" | printf "%s" | printf "%q"}}
+{{with "output"}}{{printf "%q" .}}{{end}}
+{{with $x := "output" | printf "%q"}}{{$x}}{{end}}
+{{with $x := "output"}}{{printf "%q" $x}}{{end}}
+{{with $x := "output"}}{{$x | printf "%q"}}{{end}}
+
+{{printf "%q" "this is my func"}}
+
+{{ range $i,$v := .}}
+{{if just_print $v}}
+    my method is true
+{{else}}
+    my method is false 
+{{end}}
+{{end}}
