@@ -15,7 +15,7 @@ type ring struct {
 }
 
 
-//hash环索引类型实现排序接口，以进行排查和查找node
+//hash环索引类型实现排序接口，以进行排序和查找node
 func (this rindex) Less(i, j int) bool {
 	return this[i] < this[j]
 }
@@ -74,15 +74,15 @@ func main() {
 	fmt.Println("hash ring: ",hashmap)
 
     //增加node
-    hashmap.AddNode("h4")
+	hashmap.AddNode("h4")
 	fmt.Println("add node h4 to hash ring: ",hashmap)
     
     //删除node
-    hashmap.RemoveNode("h3")
+	hashmap.RemoveNode("h3")
 	fmt.Println("del node h3 from hash ring: ",hashmap)
 
     //用相同的hash算法 获取自己key的hash值
-    key := "my key"
+	key := "my key"
 	hash := crc32.ChecksumIEEE([]byte(key))
 
     //根据key分配node
