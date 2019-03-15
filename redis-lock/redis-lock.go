@@ -64,8 +64,8 @@ func Lock() bool {
             fmt.Println("get lock success")
             return true
         } else if now > value {  //别人锁超时了，我也可以获得，防止加锁成功解锁失败的情况
-            _,err := redis.String(conn.Do("GETSET","lock",lock_value))
-            if err != nil {
+            last_value, err := redis.String(conn.Do("GETSET","lock",lock_value))
+            if (err != nil || now < last_value) {  //别人已经获得锁了,或者设置失败
                 fmt.Println("get lock getset fail",err)
                 return false 
             } else {
