@@ -49,7 +49,8 @@ func Lock() bool {
     defer conn.Close()
     for {
         lock_value := time.Now().Add(timeout).Unix() 
-        flag,err := redis.Int64(conn.Do("SETNX","lock",lock_value)) 
+        // flag,err := redis.Int64(conn.Do("SETNX","lock",lock_value))
+        flag,err := conn.Do("SET","lock",lock_value,"EX","3","NX")
         if err != nil { 
             fmt.Println("get lock setnx fail",err)
             return false 
@@ -60,7 +61,8 @@ func Lock() bool {
             return false 
         } 
         now := strconv.FormatInt(time.Now().Unix(),10)
-        if flag == 1 {  //成功获得锁
+        // if flag == 1 {  //成功获得锁
+        if flag == "OK" {
             fmt.Println("get lock success")
             return true
         } else if now > value {  //别人锁超时了，我也可以获得，防止加锁成功解锁失败的情况
