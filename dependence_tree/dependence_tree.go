@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-
 /*
 如depModel所定义，src依赖Depend,可扩展依赖的具体内容，比如资源量的依赖关系，补充上依赖系数，即可根据源的资源量计算出所需依赖的资源量
 依赖数据结构如下：
@@ -36,7 +35,6 @@ nodes := []*DepData{
 3.展示根和其所有子节点两层展示实现
 4.展示根节点及逐层展示各层子节点实现
 */
-
 
 // 定义结构体 dep
 type depModel struct {
@@ -290,12 +288,12 @@ func CheckCircleDep() {
 
 // 根据依赖模型生成的依赖数据，按依赖关系生成依赖树
 type DepData struct {
-	ID          int
-	Src         string
-	Depend      string
-	RootID      int
-	ParentID    int
-	ResourceNum float64
+	ID          int     // 唯一id
+	Src         string  // 源
+	Depend      string  // 依赖
+	RootID      int     // 根节点id
+	ParentID    int     // 父节点id
+	ResourceNum float64 // 依赖资源量
 	Children    []*DepData
 }
 
@@ -337,7 +335,7 @@ func buildTree(nodeMap map[int][]*DepData, parentID int) []*DepData {
 
 func printNodes(nodes []*DepData, level int) {
 	for i, node := range nodes {
-                if level == 0 {
+		if level == 0 {
 			fmt.Printf("data %d tree: %v\n", i, node)
 		}
 		tabs := strings.Repeat("\t", level)
@@ -392,7 +390,8 @@ func mapNodesByRoot(nodes []*DepData) map[int][]*DepData {
 }
 
 func main() {
-    	CheckCircleDep()
+	CheckCircleDep()
 	DepDataEveryLevelTree()
 	DepDataTwoLevelTree()
 }
+
