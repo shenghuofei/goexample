@@ -17,6 +17,13 @@ deps := []depModel{
 		{"D", "E"},
 		{"E", "B"}, // 这里是一个循环依赖
 }
+开始生成组件间依赖需求，一个组件可能依赖多个组件，所以依赖路径可能有多个, 即modelPaths是个list
+多个路径可能有重叠的部分，比如[A,B,C,D]和[A,B,C,E]，A->B, B->C在两个路径中都存在，所以需要记录公共前缀是否已经转换过
+在比如[A,B,C,D]和[A,C,D]的路径中，C->D在两个路径中都存在，但是需求来着不同的前缀，所以要分别计算依赖需求
+因此公共前缀只需要计算一次依赖需求，而公共后缀则需要分别计算,用一个map记录这个信息
+commonPrefix := map[int]map[string]*DepData{}
+map的一层key是依赖层级level,二层key是依赖模型model的唯一key(src,depend),如果层级相同且model相同，说明是公共前缀则只需要计算一次依赖需求
+
 根据依赖关系生成的依赖数据结构如下：
 nodes := []*DepData{
 		{ID: 1, Src: "A", RootID: 0, ParentID: 0, Depend: "B"},
@@ -394,4 +401,3 @@ func main() {
 	DepDataEveryLevelTree()
 	DepDataTwoLevelTree()
 }
-
